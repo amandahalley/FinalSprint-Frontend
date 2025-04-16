@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import takeOff from "../../assets/takeoff.png";
+import map from "../../assets/map.png";
 import "./HomePage.css";
 
 const HomePage = () => {
   return (
     <div className="homepage-container">
       <h1 className="homepage-title">
-        Welcome, Final Sprint Flight Management
+        Final Sprint - Flight Management System!
       </h1>
       <div className="nav">
         <Link to="/aircrafts" className="nav-button">
@@ -21,6 +23,14 @@ const HomePage = () => {
         <Link to="/passengers" className="nav-button">
           View Passengers
         </Link>
+      </div>
+      <div className="image-row">
+        <div>
+          <img src={takeOff} alt="departure" className="homepage-img" />
+        </div>
+        <div>
+          <img src={map} alt="Map" className="homepage-img" />
+        </div>
       </div>
     </div>
   );
