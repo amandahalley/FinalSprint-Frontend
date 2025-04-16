@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchAircraft, getAirportsByAircraft } from "../../services/api";
+import "./PageStyles.css";
 
-//display all aircrafts
 function AircraftList() {
   const [aircrafts, setAircrafts] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -11,34 +11,39 @@ function AircraftList() {
     fetchAircraft().then((res) => setAircrafts(res.data));
   }, []);
 
-  //shows airports specific aircraft has been to(landed or taken off)
   const showAirports = (id) => {
     setSelectedId(id);
     getAirportsByAircraft(id).then((res) => setAirports(res.data));
   };
 
   return (
-    <div>
-      <h2>Aircraft</h2>
-      <ul>
+    <div className="page-container">
+      <h2 className="page-title">Aircraft</h2>
+
+      <div className="list-container">
         {aircrafts.map((ac) => (
-          <li key={ac.id}>
-            {ac.type} - {ac.airlineName} ({ac.numberOfPassengers} seats)
-            <button onClick={() => showAirports(ac.id)}>Show Airports</button>
-          </li>
+          <div key={ac.id} className="list-card">
+            <p>
+              <strong>{ac.type}</strong> - {ac.airlineName} (
+              {ac.numberOfPassengers} seats)
+            </p>
+            <button className="nav-button" onClick={() => showAirports(ac.id)}>
+              Show Airports
+            </button>
+          </div>
         ))}
-      </ul>
+      </div>
 
       {selectedId && (
-        <div>
-          <h3>Airports for Aircraft #{selectedId}</h3>
-          <ul>
-            {airports.map((ap) => (
-              <li key={ap.id}>
+        <div className="list-container">
+          <h3 className="page-subtitle">Airports for Aircraft #{selectedId}</h3>
+          {airports.map((ap) => (
+            <div key={ap.id} className="list-card">
+              <p>
                 {ap.name} ({ap.code})
-              </li>
-            ))}
-          </ul>
+              </p>
+            </div>
+          ))}
         </div>
       )}
     </div>

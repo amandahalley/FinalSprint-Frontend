@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchCities, getAirportsInCity } from "../../services/api";
+import "./PageStyles.css";
 
-//displaying list of all cities,
 function CityList() {
   const [cities, setCities] = useState([]);
   const [selectedCityId, setSelectedCityId] = useState(null);
@@ -11,34 +11,41 @@ function CityList() {
     fetchCities().then((res) => setCities(res.data));
   }, []);
 
-  //allows you to see all airports in a specific city
   const showAirports = (id) => {
     setSelectedCityId(id);
     getAirportsInCity(id).then((res) => setAirports(res.data));
   };
 
   return (
-    <div>
-      <h2>Cities</h2>
-      <ul>
+    <div className="page-container">
+      <h2 className="page-title">Cities</h2>
+
+      <div className="list-container">
         {cities.map((city) => (
-          <li key={city.id}>
-            {city.name}, {city.state}
-            <button onClick={() => showAirports(city.id)}>View Airports</button>
-          </li>
+          <div key={city.id} className="list-card">
+            <p>
+              {city.name}, {city.state}
+            </p>
+            <button
+              className="nav-button"
+              onClick={() => showAirports(city.id)}
+            >
+              View Airports
+            </button>
+          </div>
         ))}
-      </ul>
+      </div>
 
       {selectedCityId && (
-        <div>
-          <h3>Airports in City #{selectedCityId}</h3>
-          <ul>
-            {airports.map((airport) => (
-              <li key={airport.id}>
+        <div className="list-container">
+          <h3 className="page-subtitle">Airports in City #{selectedCityId}</h3>
+          {airports.map((airport) => (
+            <div key={airport.id} className="list-card">
+              <p>
                 {airport.name} ({airport.code})
-              </li>
-            ))}
-          </ul>
+              </p>
+            </div>
+          ))}
         </div>
       )}
     </div>
