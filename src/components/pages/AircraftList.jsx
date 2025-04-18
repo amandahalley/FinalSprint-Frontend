@@ -24,8 +24,8 @@ function AircraftList() {
         {aircrafts.map((ac) => (
           <div key={ac.id} className="list-card">
             <p>
-              <strong>{ac.type}</strong> - {ac.airlineName} (
-              {ac.numberOfPassengers} seats)
+              <strong>{ac.type}</strong> ({ac.numberOfPassengers} seats) -{" "}
+              {ac.airlineName}
             </p>
             <button className="nav-button" onClick={() => showAirports(ac.id)}>
               Show Airports
